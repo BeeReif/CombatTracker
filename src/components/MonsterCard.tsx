@@ -1,5 +1,4 @@
-import { Box, Button, Card, CardContent, Chip, Divider, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import { Box, Button, Card, CardContent, Chip, Divider, Grid, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 type CardProps = {
@@ -58,12 +57,12 @@ export default function MonsterCard(props: CardProps) {
         setRollCount(+e.currentTarget.value)
     }
 
-    function handleClickRoll(_e: React.MouseEvent<HTMLButtonElement>) {
-        var rolls = []
-        var hits = 0
-        var total = 0
+    function handleClickRoll(_: React.MouseEvent<HTMLButtonElement>) {
+        const rolls = []
+        let hits = 0
+        let total = 0
         for(let i = 0; i < rollCount; i++) {
-            var roll = Math.ceil(Math.random() * dieSize) + modifier
+            const roll = Math.ceil(Math.random() * dieSize) + modifier
             rolls.push(roll)
             total += roll
             if (roll > dc && roll - modifier != 1) {
@@ -79,31 +78,31 @@ export default function MonsterCard(props: CardProps) {
         <>
             <Card sx={{backgroundColor: 'WhiteSmoke'}}>
                 <Grid container>
-                    <Grid xs={12}>
+                    <Grid size={12}>
                         <Divider variant="fullWidth" sx={{backgroundColor: props.color, height: '4px'}}/>
-                        <Typography paddingTop={1} variant="h5" align="center" component="div">
-                            <Box fontWeight='bold'>
+                        <Typography sx={{paddingTop: 1}} variant="h5" align="center" component="div">
+                            <Box sx={{fontWeight: 'bold'}}>
                                 {props.name}
                             </Box>
                         </Typography>
                     </Grid>
                     <CardContent sx={{width: '100%'}}>
                         <Divider variant="fullWidth"/>
-                        <Grid paddingTop={1} container rowSpacing={3} alignItems='center'>
-                            <Grid xs={12} container columns={24}>
-                                <Grid xs={5}>
+                        <Grid  container rowSpacing={3} sx={{alignItems: 'center', paddingTop: 1}}>
+                            <Grid size={12} container columns={24}>
+                                <Grid size={5}>
                                     Hit Points: <Chip label={currentHp}/>
                                 </Grid>
-                                <Grid xs={3}>
+                                <Grid size={3}>
                                     AC: <Chip label={props.ac}/>
                                 </Grid>
-                                <Grid xs={6}>
+                                <Grid size={6}>
                                     Units Remaining: <Chip label={unitsRemaining}/>
                                 </Grid>
-                                <Grid xs={7}>
+                                <Grid size={7}>
                                         <TextField label="Damage" type="number" size="small" onChange={handleChangeDamage}/>
                                 </Grid>
-                                <Grid xs={1}>
+                                <Grid size={1}>
                                     <Button
                                         sx={{fontSize: '8pt'}}
                                         color="success"
@@ -124,8 +123,8 @@ export default function MonsterCard(props: CardProps) {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Grid xs={12} container spacing={1} columns={24} alignItems='center'>
-                                <Grid xs={9}>
+                            <Grid size={12} container spacing={1} columns={24}>
+                                <Grid size={9}>
                                 Roll: <Select value={dieSize.toString()} label={`d${dieSize}`} onChange={handleChangeDie}>
                                     <MenuItem value={4}>d4</MenuItem>
                                     <MenuItem value={6}>d6</MenuItem>
@@ -142,7 +141,7 @@ export default function MonsterCard(props: CardProps) {
                                     sx={{maxWidth: '6rem', minWidth: "4rem"}}
                                     onChange={handleChangeMod}/>
                                 </Grid>
-                                <Grid xs={7} container>
+                                <Grid size={7} container>
                                     <Grid container>
                                         <Grid>
                                             <TextField
@@ -164,7 +163,7 @@ export default function MonsterCard(props: CardProps) {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid xs={3}>
+                                <Grid size={3}>
                                 <Button variant="contained" onClick={handleClickRoll}>
                                     Roll
                                 </Button>
@@ -177,7 +176,7 @@ export default function MonsterCard(props: CardProps) {
                                     </Typography>
                                 </Grid>
                             </Grid>
-                            <Grid xs={12}>
+                            <Grid size={12}>
                                 Result:
                                 {rollResults.map((roll) => 
                                 <Typography sx={{display: 'inline'}} color={roll - modifier === 20 ? "#D4AF37" : roll - modifier === 1 ? "red" : roll > dc ? "green" : "red"}>
